@@ -1,14 +1,12 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from sqlalchemy.ext.declarative import declarative_base
-Base = declarative_base()
-
 
 @dataclass
 class Student:
     name: str
     age: str
+    score: int
     id: Optional[int] = None
 
 @dataclass

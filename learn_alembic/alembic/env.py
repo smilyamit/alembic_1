@@ -1,32 +1,23 @@
+from logging.config import fileConfig
+from sqlalchemy import engine_from_config, pool
+from alembic import context
 import os
 import sys
-from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+# Add your project root to the Python path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(project_root)
 
-from alembic import context
-
-# Get the current directory of this script
-current_dir = os.path.dirname(os.path.realpath(__file__))
-
-# Append the parent directory to the Python path
-parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
-sys.path.append(parent_dir)
-
-# Modify the path to reflect the location of your models.py
+# Import your Base and DB_URL from the correct locations
 from learn_alembic.orm import Base
+from learn_alembic.config import DB_URL
 
 config = context.config
 fileConfig(config.config_file_name)
 
 target_metadata = Base.metadata
 
-# Other database configuration should be set in config.py
-from learn_alembic.config import DB_URL
-
 config.set_main_option('sqlalchemy.url', DB_URL)
-
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode."""
@@ -40,7 +31,6 @@ def run_migrations_offline():
 
     with context.begin_transaction():
         context.run_migrations()
-
 
 def run_migrations_online():
     """Run migrations in 'online' mode."""
@@ -58,7 +48,6 @@ def run_migrations_online():
 
         with context.begin_transaction():
             context.run_migrations()
-
 
 if context.is_offline_mode():
     run_migrations_offline()

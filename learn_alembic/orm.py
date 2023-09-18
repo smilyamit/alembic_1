@@ -1,19 +1,19 @@
 from sqlalchemy import Table, Column, Integer, String
-# from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import registry
 from my_model import models
-from my_model.models import Base
 
 
 mapper_reg = registry()
-# Base = declarative_base()
+Base = declarative_base()
 
 student_info = Table(
-    'stud',
+    'student_info',
     mapper_reg.metadata,
     Column('id', Integer, primary_key=True, index=True),
     Column('name', String),
-    Column('age', String)
+    Column('age', String),
+    Column('score', Integer)
 )
 
 course_info = Table(
